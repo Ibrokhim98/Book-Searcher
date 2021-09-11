@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum NetWorkError: Error {
+   case connectivity
+}
+
 class RemoteBookLoader {
     let url: URL
     let client: HTTPClient
@@ -16,8 +20,10 @@ class RemoteBookLoader {
         self.client = client
     }
     
-    func load() {
-        client.get(from: url)
+    func load(completion: @escaping (NetWorkError) -> Void) {
+        client.get(from: url) { error in
+            completion(.connectivity)
+        }
     }
 }
 
