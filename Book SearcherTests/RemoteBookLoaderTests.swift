@@ -59,6 +59,18 @@ class RemoteBookLoaderTests: XCTestCase {
         XCTAssertEqual(capturedErrors, [.invalidData])
     }
     
+    func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
+        let (sut, client) = makeSUT()
+        
+        var capturedErrors = [NetworkError]()
+        sut.load { capturedErrors.append($0) }
+        
+        let invalidJSON = Data()
+        client.commplete(withStatusCode: 200, data: invalidJSON)
+        
+        XCTAssertEqual(capturedErrors, [.invalidData])
+    }
+    
     // MARK: - Helpers
 
     private func makeSUT(url: URL = URL(string: "https://a-url.com")!) -> (sut: RemoteBookLoader, client: HTTPClientSpy) {
@@ -69,13 +81,13 @@ class RemoteBookLoaderTests: XCTestCase {
     }
 
     private class HTTPClientSpy: HTTPClient {
-        private var messages = [(url: URL, completion: (Result<HTTPURLResponse, Error>) -> Void)]()
+        private var messages = [(url: URL, completion: (Result<HTTPClientResponse, Error>) -> Void)]()
         
         var requestedURLs: [URL] {
             return messages.map { $0.url }
         }
         
-        func get(from url: URL, completion: @escaping (Result<HTTPURLResponse, Error>) -> Void) {
+        func get(from url: URL, completion: @escaping (Result<HTTPClientResponse, Error>) -> Void) {
             messages.append((url, completion))
         }
         
@@ -83,13 +95,13 @@ class RemoteBookLoaderTests: XCTestCase {
             messages[index].completion(.failure(error))
         }
         
-        func commplete(withStatusCode code: Int, at index: Int = 0) {
+        func commplete(withStatusCode code: Int, data: Data = Data(), at index: Int = 0) {
             let response = HTTPURLResponse(url: messages[index].url,
                                            statusCode: code,
                                            httpVersion: nil,
                                            headerFields: nil)!
             
-            messages[index].completion(.success(response))
+            messages[index].completion(.success((data, response)))
         }
         
     }
