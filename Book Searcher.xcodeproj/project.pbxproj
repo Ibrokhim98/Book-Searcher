@@ -11,9 +11,9 @@
 		A7544A5E26ED0FF300C9FA15 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7544A5D26ED0FF300C9FA15 /* ViewController.swift */; };
 		A7544A6326ED0FF500C9FA15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7544A6226ED0FF500C9FA15 /* Assets.xcassets */; };
 		A7544A6626ED0FF500C9FA15 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7544A6426ED0FF500C9FA15 /* LaunchScreen.storyboard */; };
-		A7544A7126ED0FF500C9FA15 /* Book_SearcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7544A7026ED0FF500C9FA15 /* Book_SearcherTests.swift */; };
 		A7544A8A26ED126300C9FA15 /* BookItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7544A8926ED126300C9FA15 /* BookItem.swift */; };
 		A7544A8D26ED157100C9FA15 /* BookLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7544A8C26ED157100C9FA15 /* BookLoader.swift */; };
+		A7544A8F26ED16E600C9FA15 /* RemoteBookLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7544A8E26ED16E600C9FA15 /* RemoteBookLoaderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,10 +34,10 @@
 		A7544A6526ED0FF500C9FA15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A7544A6726ED0FF500C9FA15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7544A6C26ED0FF500C9FA15 /* Book SearcherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Book SearcherTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A7544A7026ED0FF500C9FA15 /* Book_SearcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book_SearcherTests.swift; sourceTree = "<group>"; };
 		A7544A7226ED0FF500C9FA15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7544A8926ED126300C9FA15 /* BookItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookItem.swift; sourceTree = "<group>"; };
 		A7544A8C26ED157100C9FA15 /* BookLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookLoader.swift; sourceTree = "<group>"; };
+		A7544A8E26ED16E600C9FA15 /* RemoteBookLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteBookLoaderTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,8 +92,8 @@
 		A7544A6F26ED0FF500C9FA15 /* Book SearcherTests */ = {
 			isa = PBXGroup;
 			children = (
-				A7544A7026ED0FF500C9FA15 /* Book_SearcherTests.swift */,
 				A7544A7226ED0FF500C9FA15 /* Info.plist */,
+				A7544A8E26ED16E600C9FA15 /* RemoteBookLoaderTests.swift */,
 			);
 			path = "Book SearcherTests";
 			sourceTree = "<group>";
@@ -159,6 +159,7 @@
 					};
 					A7544A6B26ED0FF500C9FA15 = {
 						CreatedOnToolsVersion = 12.5.1;
+						LastSwiftMigration = 1250;
 						TestTargetID = A7544A5526ED0FF300C9FA15;
 					};
 				};
@@ -217,7 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7544A7126ED0FF500C9FA15 /* Book_SearcherTests.swift in Sources */,
+				A7544A8F26ED16E600C9FA15 /* RemoteBookLoaderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +403,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z3Y53ML23M;
 				INFOPLIST_FILE = "Book SearcherTests/Info.plist";
@@ -413,6 +415,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ibrokhim.Book-SearcherTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Book Searcher.app/Book Searcher";
@@ -424,6 +427,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Z3Y53ML23M;
 				INFOPLIST_FILE = "Book SearcherTests/Info.plist";
