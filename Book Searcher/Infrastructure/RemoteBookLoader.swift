@@ -22,10 +22,11 @@ class RemoteBookLoader {
     }
     
     func load(completion: @escaping (NetworkError) -> Void) {
-        client.get(from: url) { error, response in
-            if response != nil {
+        client.get(from: url) { result in
+            switch result {
+            case .success:
                 completion(.invalidData)
-            } else {
+            case .failure:
                 completion(.connectivity)
             }
         }
