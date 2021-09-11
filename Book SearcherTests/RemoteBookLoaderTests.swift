@@ -8,32 +8,41 @@
 import XCTest
 @testable import Book_Searcher
 
-class HTTPClientSpy: HTTPClient {
-    var requestedURL: URL?
-    
-    func get(from url: URL) {
-        requestedURL = url
-    }
-    
-}
 
 class RemoteBookLoaderTests: XCTestCase {
 
     func test_init_doesNotRequestDataFromURL() {
-        let client = HTTPClientSpy()
-        let url = URL(string: "https://a-url.com")!
-        _ = RemoteBookLoader(url: url, client: client)
+        let (_, client) = makeSUT()
         
         XCTAssertNil(client.requestedURL)
     }
     
     func test_load_requestDataFromURL() {
-        let client = HTTPClientSpy()
-        let url = URL(string: "https://another-url.com")!
-        let sut = RemoteBookLoader(url: url, client: client)
+        let (sut, client) = makeSUT()
         
         sut.load()
         
         XCTAssertNotNil(client.requestedURL)
     }
+    
+    // MARK: - Helpers
+
+    private func makeSUT(url: URL = URL(string: "https://a-url.com")!) -> (sut: RemoteBookLoader, client: HTTPClientSpy) {
+        let client = HTTPClientSpy()
+        let sut = RemoteBookLoader(url: url, client: client)
+        
+        return (sut, client)
+    }
+
+    private class HTTPClientSpy: HTTPClient {
+        var requestedURL: URL?
+        
+        func get(from url: URL) {
+            requestedURL = url
+        }
+        
+    }
+
 }
+
+
