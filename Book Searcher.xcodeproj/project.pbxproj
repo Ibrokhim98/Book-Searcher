@@ -12,6 +12,7 @@
 		A7544A6326ED0FF500C9FA15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7544A6226ED0FF500C9FA15 /* Assets.xcassets */; };
 		A7544A6626ED0FF500C9FA15 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7544A6426ED0FF500C9FA15 /* LaunchScreen.storyboard */; };
 		A7544A7126ED0FF500C9FA15 /* Book_SearcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7544A7026ED0FF500C9FA15 /* Book_SearcherTests.swift */; };
+		A7544A8A26ED126300C9FA15 /* BookItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7544A8926ED126300C9FA15 /* BookItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +35,7 @@
 		A7544A6C26ED0FF500C9FA15 /* Book SearcherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Book SearcherTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7544A7026ED0FF500C9FA15 /* Book_SearcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book_SearcherTests.swift; sourceTree = "<group>"; };
 		A7544A7226ED0FF500C9FA15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A7544A8926ED126300C9FA15 /* BookItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			children = (
 				A7544A5926ED0FF300C9FA15 /* AppDelegate.swift */,
 				A7544A5D26ED0FF300C9FA15 /* ViewController.swift */,
+				A7544A8926ED126300C9FA15 /* BookItem.swift */,
 				A7544A6226ED0FF500C9FA15 /* Assets.xcassets */,
 				A7544A6426ED0FF500C9FA15 /* LaunchScreen.storyboard */,
 				A7544A6726ED0FF500C9FA15 /* Info.plist */,
@@ -193,6 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7544A5E26ED0FF300C9FA15 /* ViewController.swift in Sources */,
+				A7544A8A26ED126300C9FA15 /* BookItem.swift in Sources */,
 				A7544A5A26ED0FF300C9FA15 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
