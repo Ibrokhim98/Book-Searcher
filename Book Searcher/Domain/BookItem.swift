@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BookItem {
+struct BookItem: Equatable {
     let title: String
     let authors: [String]
     let thumbnail: String

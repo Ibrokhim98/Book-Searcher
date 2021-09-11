@@ -21,13 +21,17 @@ class RemoteBookLoader {
         self.client = client
     }
     
-    func load(completion: @escaping (NetworkError) -> Void) {
+   func load(completion: @escaping (Result<[BookItem], NetworkError>) -> Void) {
         client.get(from: url) { result in
             switch result {
-            case .success:
-                completion(.invalidData)
+            case  let .success((data, _)):
+                if let _ =  try? JSONSerialization.jsonObject(with: data) {
+                    completion(.success([]))
+                } else {
+                    completion(.failure(.invalidData))
+                }
             case .failure:
-                completion(.connectivity)
+                completion(.failure(.connectivity))
             }
         }
     }

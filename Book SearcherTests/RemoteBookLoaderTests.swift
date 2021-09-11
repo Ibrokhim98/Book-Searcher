@@ -39,36 +39,48 @@ class RemoteBookLoaderTests: XCTestCase {
     func test_load_deliversErrorOnClientError() {
         let (sut, client) = makeSUT()
         
-        var capturedErrors = [NetworkError]()
+        var capturedErrors = [Result<[BookItem], NetworkError>]()
         sut.load { capturedErrors.append($0) }
         
         let clientError = NSError(domain: "Test", code: 0)
-        client.commplete(with: clientError)
+        client.complete(with: clientError)
         
-        XCTAssertEqual(capturedErrors, [.connectivity])
+        XCTAssertEqual(capturedErrors, [.failure(.connectivity)])
     }
     
     func test_load_deliversErrorOnNon200HTTPResponse() {
         let (sut, client) = makeSUT()
         
-        var capturedErrors = [NetworkError]()
+        var capturedErrors = [Result<[BookItem], NetworkError>]()
         sut.load { capturedErrors.append($0) }
         
-        client.commplete(withStatusCode: 400)
+        client.complete(withStatusCode: 400)
         
-        XCTAssertEqual(capturedErrors, [.invalidData])
+        XCTAssertEqual(capturedErrors, [.failure(.invalidData)])
     }
     
     func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
         let (sut, client) = makeSUT()
         
-        var capturedErrors = [NetworkError]()
+        var capturedErrors = [Result<[BookItem], NetworkError>]()
         sut.load { capturedErrors.append($0) }
         
         let invalidJSON = Data()
-        client.commplete(withStatusCode: 200, data: invalidJSON)
+        client.complete(withStatusCode: 200, data: invalidJSON)
         
-        XCTAssertEqual(capturedErrors, [.invalidData])
+        XCTAssertEqual(capturedErrors, [.failure(.invalidData)])
+    }
+    
+    func test_load_deliversNoitemsOn200HTTPResponseWithEmptyJSONList() {
+        let (sut, client) = makeSUT()
+        
+        var capturedResults = [Result<[BookItem], NetworkError>]()
+        sut.load { capturedResults.append($0) }
+        
+        let emptyListJSON = Data(bytes: "{\"items\": []}".utf8)
+        client.complete(withStatusCode: 200, data: emptyListJSON)
+        
+        XCTAssertEqual(capturedResults, [.success([])])
     }
     
     // MARK: - Helpers
@@ -91,11 +103,11 @@ class RemoteBookLoaderTests: XCTestCase {
             messages.append((url, completion))
         }
         
-        func commplete(with error: Error, at index: Int = 0) {
+        func complete(with error: Error, at index: Int = 0) {
             messages[index].completion(.failure(error))
         }
         
-        func commplete(withStatusCode code: Int, data: Data = Data(), at index: Int = 0) {
+        func complete(withStatusCode code: Int, data: Data = Data(), at index: Int = 0) {
             let response = HTTPURLResponse(url: messages[index].url,
                                            statusCode: code,
                                            httpVersion: nil,
