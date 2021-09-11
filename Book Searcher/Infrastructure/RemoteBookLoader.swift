@@ -7,8 +7,9 @@
 
 import Foundation
 
-enum NetWorkError: Error {
+enum NetworkError: Error {
    case connectivity
+   case invalidData
 }
 
 class RemoteBookLoader {
@@ -20,9 +21,13 @@ class RemoteBookLoader {
         self.client = client
     }
     
-    func load(completion: @escaping (NetWorkError) -> Void) {
-        client.get(from: url) { error in
-            completion(.connectivity)
+    func load(completion: @escaping (NetworkError) -> Void) {
+        client.get(from: url) { error, response in
+            if response != nil {
+                completion(.invalidData)
+            } else {
+                completion(.connectivity)
+            }
         }
     }
 }
