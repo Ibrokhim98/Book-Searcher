@@ -14,6 +14,8 @@
 		A7544A8A26ED126300C9FA15 /* BookItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7544A8926ED126300C9FA15 /* BookItem.swift */; };
 		A7544A8D26ED157100C9FA15 /* BookLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7544A8C26ED157100C9FA15 /* BookLoader.swift */; };
 		A7544A8F26ED16E600C9FA15 /* RemoteBookLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7544A8E26ED16E600C9FA15 /* RemoteBookLoaderTests.swift */; };
+		A7544A9226ED1F0E00C9FA15 /* RemoteBookLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7544A9126ED1F0E00C9FA15 /* RemoteBookLoader.swift */; };
+		A7544A9426ED1F6200C9FA15 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7544A9326ED1F6200C9FA15 /* HTTPClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +40,8 @@
 		A7544A8926ED126300C9FA15 /* BookItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookItem.swift; sourceTree = "<group>"; };
 		A7544A8C26ED157100C9FA15 /* BookLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookLoader.swift; sourceTree = "<group>"; };
 		A7544A8E26ED16E600C9FA15 /* RemoteBookLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteBookLoaderTests.swift; sourceTree = "<group>"; };
+		A7544A9126ED1F0E00C9FA15 /* RemoteBookLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteBookLoader.swift; sourceTree = "<group>"; };
+		A7544A9326ED1F6200C9FA15 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +86,7 @@
 				A7544A5926ED0FF300C9FA15 /* AppDelegate.swift */,
 				A7544A5D26ED0FF300C9FA15 /* ViewController.swift */,
 				A7544A8B26ED155E00C9FA15 /* Domain */,
+				A7544A9026ED1ECA00C9FA15 /* Infrastructure */,
 				A7544A6226ED0FF500C9FA15 /* Assets.xcassets */,
 				A7544A6426ED0FF500C9FA15 /* LaunchScreen.storyboard */,
 				A7544A6726ED0FF500C9FA15 /* Info.plist */,
@@ -92,8 +97,8 @@
 		A7544A6F26ED0FF500C9FA15 /* Book SearcherTests */ = {
 			isa = PBXGroup;
 			children = (
-				A7544A7226ED0FF500C9FA15 /* Info.plist */,
 				A7544A8E26ED16E600C9FA15 /* RemoteBookLoaderTests.swift */,
+				A7544A7226ED0FF500C9FA15 /* Info.plist */,
 			);
 			path = "Book SearcherTests";
 			sourceTree = "<group>";
@@ -105,6 +110,15 @@
 				A7544A8C26ED157100C9FA15 /* BookLoader.swift */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		A7544A9026ED1ECA00C9FA15 /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				A7544A9126ED1F0E00C9FA15 /* RemoteBookLoader.swift */,
+				A7544A9326ED1F6200C9FA15 /* HTTPClient.swift */,
+			);
+			path = Infrastructure;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,6 +223,8 @@
 			files = (
 				A7544A5E26ED0FF300C9FA15 /* ViewController.swift in Sources */,
 				A7544A8D26ED157100C9FA15 /* BookLoader.swift in Sources */,
+				A7544A9426ED1F6200C9FA15 /* HTTPClient.swift in Sources */,
+				A7544A9226ED1F0E00C9FA15 /* RemoteBookLoader.swift in Sources */,
 				A7544A8A26ED126300C9FA15 /* BookItem.swift in Sources */,
 				A7544A5A26ED0FF300C9FA15 /* AppDelegate.swift in Sources */,
 			);
