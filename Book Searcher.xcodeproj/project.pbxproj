@@ -18,6 +18,7 @@
 		A7544A9426ED1F6200C9FA15 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7544A9326ED1F6200C9FA15 /* HTTPClient.swift */; };
 		A7544A9826EE52BC00C9FA15 /* LoadBooksUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7544A9726EE52BC00C9FA15 /* LoadBooksUseCase.swift */; };
 		A7544A9E26EE57EB00C9FA15 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7544A9D26EE57EB00C9FA15 /* SearchViewModel.swift */; };
+		A7544AA326EE631300C9FA15 /* BookViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7544AA226EE631300C9FA15 /* BookViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		A7544A9726EE52BC00C9FA15 /* LoadBooksUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadBooksUseCase.swift; sourceTree = "<group>"; };
 		A7544A9A26EE54E400C9FA15 /* DefaultLoadBooksUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLoadBooksUseCase.swift; sourceTree = "<group>"; };
 		A7544A9D26EE57EB00C9FA15 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		A7544AA226EE631300C9FA15 /* BookViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,10 +149,27 @@
 		A7544A9F26EE580D00C9FA15 /* SearchScreen */ = {
 			isa = PBXGroup;
 			children = (
-				A7544A5D26ED0FF300C9FA15 /* SearchViewController.swift */,
-				A7544A9D26EE57EB00C9FA15 /* SearchViewModel.swift */,
+				A7544AA026EE62F000C9FA15 /* View */,
+				A7544AA126EE62F700C9FA15 /* ViewModel */,
 			);
 			path = SearchScreen;
+			sourceTree = "<group>";
+		};
+		A7544AA026EE62F000C9FA15 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A7544A5D26ED0FF300C9FA15 /* SearchViewController.swift */,
+				A7544AA226EE631300C9FA15 /* BookViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A7544AA126EE62F700C9FA15 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A7544A9D26EE57EB00C9FA15 /* SearchViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,6 +275,7 @@
 				A7544A5E26ED0FF300C9FA15 /* SearchViewController.swift in Sources */,
 				A7544A8D26ED157100C9FA15 /* BookLoader.swift in Sources */,
 				A7544A9E26EE57EB00C9FA15 /* SearchViewModel.swift in Sources */,
+				A7544AA326EE631300C9FA15 /* BookViewCell.swift in Sources */,
 				A7544A9826EE52BC00C9FA15 /* LoadBooksUseCase.swift in Sources */,
 				A7544A9426ED1F6200C9FA15 /* HTTPClient.swift in Sources */,
 				A7544A9226ED1F0E00C9FA15 /* RemoteBookLoader.swift in Sources */,

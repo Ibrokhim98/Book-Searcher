@@ -21,6 +21,7 @@ class SearchViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
+        tableView.register(BookViewCell.self, forCellReuseIdentifier: BookViewCell.cellID)
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
@@ -35,7 +36,6 @@ class SearchViewController: UIViewController {
     
     
     //MARK: - Helper Methods
-    
     private func setUpViews() {
         view.addSubview(tableView)
         navigationItem.searchController = searchView
@@ -65,9 +65,15 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: BookViewCell.cellID, for: indexPath) as? BookViewCell else  {
+            return UITableViewCell()
+        }
+        return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 108
+    }
     
 }
 
