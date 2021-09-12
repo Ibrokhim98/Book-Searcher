@@ -77,10 +77,29 @@ class RemoteBookLoaderTests: XCTestCase {
         var capturedResults = [Result<[BookItem], NetworkError>]()
         sut.load { capturedResults.append($0) }
         
-        let emptyListJSON = Data(bytes: "{\"items\": []}".utf8)
+        let emptyListJSON = Data("{\"items\": []}".utf8)
         client.complete(withStatusCode: 200, data: emptyListJSON)
         
         XCTAssertEqual(capturedResults, [.success([])])
+    }
+    
+    func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
+        let (sut, client) = makeSUT()
+        
+        let item1 = makeItem(title: "a title", authors: ["a author"], thumbnail: "https://a-url.com")
+        
+        let item2 = makeItem(title: "another title", authors: ["another author"], thumbnail: "https://another-url.com")
+        
+        let items = [item1.model, item2.model]
+        
+        var capturedResults = [Result<[BookItem], NetworkError>]()
+        sut.load { capturedResults.append($0) }
+        
+        let json = makeItemsJSON([item1.json, item2.json])
+        
+        client.complete(withStatusCode: 200, data: json)
+        
+        XCTAssertEqual(capturedResults, [.success(items)])
     }
     
     // MARK: - Helpers
@@ -90,6 +109,27 @@ class RemoteBookLoaderTests: XCTestCase {
         let sut = RemoteBookLoader(url: url, client: client)
         
         return (sut, client)
+    }
+    
+    private func makeItem(title: String, authors: [String], thumbnail: String) -> (model: BookItem, json: [String : Any]) {
+        let item = BookItem(title: title, authors: authors, thumbnail: thumbnail)
+        let json = makeItemJSON(title, authors, thumbnail)
+        return (item, json)
+    }
+    
+    private func makeItemJSON(_ title: String, _ authors: [String], _ thumbnail: String) -> [String : Any] {
+        let imageLinks = [ "smallThumbnail": "http://a-url.com", "thumbnail": thumbnail] as [String : Any]
+        let volumeInfo = ["title": title, "authors": authors, "imageLinks" : imageLinks] as [String : Any]
+        let item = ["kind": "a kind", "id": "an id", "etag": "etag", "selfLink": "https://a-link.com",
+                    "volumeInfo" : volumeInfo] as [String : Any]
+        
+        return item
+    }
+    
+    private func makeItemsJSON(_ items: [[String: Any]]) -> Data {
+        let json = ["kind": "a kind", "totalItems": 100, "items" : items] as [String : Any]
+        
+        return try! JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
     }
 
     private class HTTPClientSpy: HTTPClient {
