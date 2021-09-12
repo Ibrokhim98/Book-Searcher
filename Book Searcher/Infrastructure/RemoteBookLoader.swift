@@ -8,15 +8,13 @@
 import Foundation
 
 class RemoteBookLoader: BookLoader {
-    let url: URL
-    let client: HTTPClient
+    private let client: HTTPClient
     
-    init(url: URL, client: HTTPClient) {
-        self.url = url
+    init(client: HTTPClient) {
         self.client = client
     }
     
-   func load(completion: @escaping (Result<[BookItem], NetworkError>) -> Void) {
+    func load(with url: URL, completion: @escaping (Result<[BookItem], NetworkError>) -> Void) {
         client.get(from: url) { result in
             switch result {
             case  let .success((data, response)):

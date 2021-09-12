@@ -14,5 +14,5 @@ enum NetworkError: Error {
 }
 
 protocol BookLoader {
-    func load(completion: @escaping (Result<[BookItem], NetworkError>) -> Void)
+    func load(with url: URL, completion: @escaping (Result<[BookItem], NetworkError>) -> Void)
 }

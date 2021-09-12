@@ -12,35 +12,33 @@ import XCTest
 class RemoteBookLoaderTests: XCTestCase {
 
     func test_init_doesNotRequestDataFromURL() {
-        let (_, client) = makeSUT()
+        let (_, client, _) = makeSUT()
         
         XCTAssertTrue(client.requestedURLs.isEmpty)
     }
     
     func test_load_requestDataFromURL() {
-        let url = URL(string: "https://a-given-url.com")!
-        let (sut, client) = makeSUT(url: url)
+        let (sut, client, url) = makeSUT(urlString: "https://a-given-url.com")
         
-        sut.load { _ in }
+        sut.load(with: url) { _ in }
         
         XCTAssertEqual(client.requestedURLs, [url])
     }
     
     func test_loadTwice_requestsDataFromURLTwice() {
-        let url = URL(string: "https://a-given-url.com")!
-        let (sut, client) = makeSUT(url: url)
+        let (sut, client, url) = makeSUT(urlString: "https://a-given-url.com")
         
-        sut.load { _ in }
-        sut.load { _ in }
+        sut.load(with: url) { _ in }
+        sut.load(with: url) { _ in }
         
         XCTAssertEqual(client.requestedURLs, [url, url])
     }
     
     func test_load_deliversErrorOnClientError() {
-        let (sut, client) = makeSUT()
+        let (sut, client, url) = makeSUT()
         
         var capturedErrors = [Result<[BookItem], NetworkError>]()
-        sut.load { capturedErrors.append($0) }
+        sut.load(with: url) { capturedErrors.append($0) }
         
         let clientError = NSError(domain: "Test", code: 0)
         client.complete(with: clientError)
@@ -49,10 +47,10 @@ class RemoteBookLoaderTests: XCTestCase {
     }
     
     func test_load_deliversErrorOnNon200HTTPResponse() {
-        let (sut, client) = makeSUT()
+        let (sut, client, url) = makeSUT()
         
         var capturedErrors = [Result<[BookItem], NetworkError>]()
-        sut.load { capturedErrors.append($0) }
+        sut.load(with: url) { capturedErrors.append($0) }
         
         client.complete(withStatusCode: 400)
         
@@ -60,10 +58,10 @@ class RemoteBookLoaderTests: XCTestCase {
     }
     
     func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
-        let (sut, client) = makeSUT()
+        let (sut, client, url) = makeSUT()
         
         var capturedErrors = [Result<[BookItem], NetworkError>]()
-        sut.load { capturedErrors.append($0) }
+        sut.load(with: url) { capturedErrors.append($0) }
         
         let invalidJSON = Data()
         client.complete(withStatusCode: 200, data: invalidJSON)
@@ -72,10 +70,10 @@ class RemoteBookLoaderTests: XCTestCase {
     }
     
     func test_load_deliversNoitemsOn200HTTPResponseWithEmptyJSONList() {
-        let (sut, client) = makeSUT()
+        let (sut, client, url) = makeSUT()
         
         var capturedResults = [Result<[BookItem], NetworkError>]()
-        sut.load { capturedResults.append($0) }
+        sut.load(with: url) { capturedResults.append($0) }
         
         let emptyListJSON = Data("{\"items\": []}".utf8)
         client.complete(withStatusCode: 200, data: emptyListJSON)
@@ -84,7 +82,7 @@ class RemoteBookLoaderTests: XCTestCase {
     }
     
     func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
-        let (sut, client) = makeSUT()
+        let (sut, client, url) = makeSUT()
         
         let item1 = makeItem(title: "a title", authors: ["a author"], thumbnail: "https://a-url.com")
         
@@ -93,7 +91,7 @@ class RemoteBookLoaderTests: XCTestCase {
         let items = [item1.model, item2.model]
         
         var capturedResults = [Result<[BookItem], NetworkError>]()
-        sut.load { capturedResults.append($0) }
+        sut.load(with: url) { capturedResults.append($0) }
         
         let json = makeItemsJSON([item1.json, item2.json])
         
@@ -104,11 +102,12 @@ class RemoteBookLoaderTests: XCTestCase {
     
     // MARK: - Helpers
 
-    private func makeSUT(url: URL = URL(string: "https://a-url.com")!) -> (sut: RemoteBookLoader, client: HTTPClientSpy) {
+    private func makeSUT(urlString: String = "https://a-url.com") -> (sut: RemoteBookLoader, client: HTTPClientSpy, url: URL) {
         let client = HTTPClientSpy()
-        let sut = RemoteBookLoader(url: url, client: client)
+        let sut = RemoteBookLoader(client: client)
+        let url = URL(string: urlString)!
         
-        return (sut, client)
+        return (sut, client, url)
     }
     
     private func makeItem(title: String, authors: [String], thumbnail: String) -> (model: BookItem, json: [String : Any]) {
