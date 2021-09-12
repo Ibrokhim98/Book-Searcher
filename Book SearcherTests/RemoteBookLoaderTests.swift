@@ -112,7 +112,8 @@ class RemoteBookLoaderTests: XCTestCase {
     }
     
     private func makeItem(title: String, authors: [String], thumbnail: String) -> (model: BookItem, json: [String : Any]) {
-        let item = BookItem(title: title, authors: authors, thumbnail: thumbnail)
+        let url = URL(string: thumbnail)!
+        let item = BookItem(title: title, authors: authors, thumbnail: url)
         let json = makeItemJSON(title, authors, thumbnail)
         return (item, json)
     }

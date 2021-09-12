@@ -58,8 +58,8 @@ class RemoteBookLoader {
                          }
                      }
 
-                    if let title = title, let authors = authors, let thumbNail = thumbNail {
-                        let book = BookItem(title: title, authors: authors, thumbnail: thumbNail)
+                    if let title = title, let authors = authors, let thumbNail = thumbNail, let url = URL(string: thumbNail) {
+                        let book = BookItem(title: title, authors: authors, thumbnail: url)
                         books.append(book)
                     }
                 }
