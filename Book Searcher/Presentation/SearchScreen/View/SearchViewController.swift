@@ -8,6 +8,17 @@
 import UIKit
 
 class SearchViewController: UIViewController {
+    private let viewModel: SearchViewModel
+
+    //MARK: - Init
+    init(viewModel: SearchViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     //MARK: - Outlets
     private lazy var searchView: UISearchController = {
@@ -30,6 +41,7 @@ class SearchViewController: UIViewController {
     //MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.delegate = self
         setUpViews()
         setViewAppearance()
     }
@@ -54,26 +66,44 @@ class SearchViewController: UIViewController {
 //MARK: - SearchController Delegate Methods
 extension SearchViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
-        
+        if let searchText = searchController.searchBar.text {
+            viewModel.loadBooks(with: searchText)
+            
+            if searchText.isEmpty {
+                clearTableView()
+            }
+        }
+    }
+    
+    private func clearTableView() {
+        viewModel.booksCount = 0
+        tableView.reloadData()
     }
 }
 
 //MARK: - TableView Delegate Methods
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return viewModel.booksCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BookViewCell.cellID, for: indexPath) as? BookViewCell else  {
             return UITableViewCell()
         }
+        let index = indexPath.row
+        cell.setContent(title: viewModel.getTitle(at: index), authors: viewModel.getAuthorsList(at: index), thumbNail: viewModel.getThumnail(at: index))
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 108
     }
-    
+}
+
+extension SearchViewController: SearchViewDelegate {
+    func renderView() {
+        tableView.reloadData()
+    }
 }
 

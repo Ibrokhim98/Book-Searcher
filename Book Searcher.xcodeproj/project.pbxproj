@@ -19,6 +19,7 @@
 		A7544A9826EE52BC00C9FA15 /* LoadBooksUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7544A9726EE52BC00C9FA15 /* LoadBooksUseCase.swift */; };
 		A7544A9E26EE57EB00C9FA15 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7544A9D26EE57EB00C9FA15 /* SearchViewModel.swift */; };
 		A7544AA326EE631300C9FA15 /* BookViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7544AA226EE631300C9FA15 /* BookViewCell.swift */; };
+		A7544AA426EE78CF00C9FA15 /* DefaultLoadBooksUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7544A9A26EE54E400C9FA15 /* DefaultLoadBooksUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -272,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7544AA426EE78CF00C9FA15 /* DefaultLoadBooksUseCase.swift in Sources */,
 				A7544A5E26ED0FF300C9FA15 /* SearchViewController.swift in Sources */,
 				A7544A8D26ED157100C9FA15 /* BookLoader.swift in Sources */,
 				A7544A9E26EE57EB00C9FA15 /* SearchViewModel.swift in Sources */,

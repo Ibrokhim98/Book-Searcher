@@ -22,11 +22,13 @@ final class DefaultLoadBooksUseCase: LoadBooksUseCase {
         }
         
         bookLoader.load(with: url) { result in
-            switch result {
-            case .success(let books):
-                completion(.success(books))
-            case .failure(let error):
-                completion(.failure(.network(error)))
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let books):
+                    completion(.success(books))
+                case .failure(let error):
+                    completion(.failure(.network(error)))
+                }
             }
         }
     }

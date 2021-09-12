@@ -20,7 +20,7 @@ class BookViewCell: UITableViewCell {
         return bookImage
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.numberOfLines = 2
@@ -82,5 +82,16 @@ class BookViewCell: UITableViewCell {
             labelsStackView.topAnchor.constraint(equalTo: topAnchor, constant: 4),
             labelsStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4)
         ])
+    }
+    
+    func setContent(title: String, authors: [String], thumbNail: URL) {
+        titleLabel.text = title
+        var authorsText = ""
+        authors.forEach { author in
+            authorsText += author
+            authorsText += "; "
+        }
+        authorsLabel.text = authorsText
+        bookImage.image = UIImage()
     }
 }
