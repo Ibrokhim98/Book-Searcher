@@ -60,6 +60,10 @@ class SearchViewController: UIViewController {
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.systemBlue]
         navigationController?.navigationBar.prefersLargeTitles = true
     }
+    
+    private func openDetailViewController(with viewModel: DetailViewModel) {
+        print("detail")
+    }
 }
 
 
@@ -98,6 +102,12 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 108
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let index = indexPath.row
+        let detailViewModel = DetailViewModel(title: viewModel.getTitle(at: index), authors: viewModel.getAuthorsList(at: index), imageURL: viewModel.getThumnail(at: index))
+        openDetailViewController(with: detailViewModel)
     }
 }
 
