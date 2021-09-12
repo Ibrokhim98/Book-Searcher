@@ -31,16 +31,16 @@ class DetailViewController: UIViewController {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.font = UIFont.boldSystemFont(ofSize: 22)
         label.numberOfLines = 2
-        label.text = "Authors"
+        label.text = "Authors:"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     private let authorsLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20)
+        label.font = UIFont.systemFont(ofSize: 19)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -51,7 +51,34 @@ class DetailViewController: UIViewController {
         sv.axis = .vertical
         sv.alignment = .fill
         sv.distribution = .fillProportionally
-        sv.spacing = 8
+        sv.spacing = 4
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        return sv
+    }()
+    
+    private let descriptionTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 22)
+        label.numberOfLines = 2
+        label.text = "Description:"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 22)
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let descriptionLabelsStackView: UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .vertical
+        sv.alignment = .fill
+        sv.distribution = .fillProportionally
+        sv.spacing = 4
         sv.translatesAutoresizingMaskIntoConstraints = false
         return sv
     }()
@@ -68,6 +95,11 @@ class DetailViewController: UIViewController {
         super.viewWillAppear(animated)
         setUpContent()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
 
     //MARK: - Helper Methods
     private func setViewAppearance() {
@@ -81,6 +113,10 @@ class DetailViewController: UIViewController {
         view.addSubview(labelsStackView)
         labelsStackView.addArrangedSubview(titleLabel)
         labelsStackView.addArrangedSubview(authorsLabel)
+        
+        view.addSubview(descriptionLabelsStackView)
+        descriptionLabelsStackView.addArrangedSubview(descriptionTitleLabel)
+        descriptionLabelsStackView.addArrangedSubview(descriptionLabel)
     }
     
     private func setUpConstraints() {
@@ -96,6 +132,12 @@ class DetailViewController: UIViewController {
             labelsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
             labelsStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 32)
         ])
+        
+        NSLayoutConstraint.activate([
+            descriptionLabelsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
+            descriptionLabelsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
+            descriptionLabelsStackView.topAnchor.constraint(equalTo: labelsStackView.bottomAnchor, constant: 16)
+        ])
     }
     
     private func setUpContent() {
@@ -108,6 +150,7 @@ class DetailViewController: UIViewController {
             authorsText += author
         }
         authorsLabel.text = authorsText
+        descriptionLabel.text = viewModel.description
         
         imageView.kf.indicatorType = .activity
         imageView.kf.setImage(with: viewModel.imageURL)

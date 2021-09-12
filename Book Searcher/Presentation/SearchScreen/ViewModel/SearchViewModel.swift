@@ -53,6 +53,11 @@ class SearchViewModel {
         return books[index].authors
     }
     
+    func getDescription(at index: Int) -> String {
+        return books[index].description
+    }
+    
+    
     func getThumnail(at index: Int) -> URL {
         return books[index].thumbnail
     }

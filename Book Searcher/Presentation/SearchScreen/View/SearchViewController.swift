@@ -107,7 +107,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let index = indexPath.row
-        let detailViewModel = DetailViewModel(title: viewModel.getTitle(at: index), authors: viewModel.getAuthorsList(at: index), imageURL: viewModel.getThumnail(at: index))
+        let detailViewModel = DetailViewModel(title: viewModel.getTitle(at: index), authors: viewModel.getAuthorsList(at: index),
+                                              description: viewModel.getDescription(at: index), imageURL: viewModel.getThumnail(at: index))
         openDetailViewController(with: detailViewModel)
     }
 }
