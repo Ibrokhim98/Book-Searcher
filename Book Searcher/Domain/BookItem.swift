@@ -10,5 +10,6 @@ import Foundation
 struct BookItem: Equatable {
     let title: String
     let authors: [String]
+    let description: String
     let thumbnail: URL
 }

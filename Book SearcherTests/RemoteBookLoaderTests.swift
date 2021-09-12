@@ -84,9 +84,9 @@ class RemoteBookLoaderTests: XCTestCase {
     func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
         let (sut, client, url) = makeSUT()
         
-        let item1 = makeItem(title: "a title", authors: ["a author"], thumbnail: "https://a-url.com")
+        let item1 = makeItem(title: "a title", authors: ["a author"], description: "a description", thumbnail: "https://a-url.com")
         
-        let item2 = makeItem(title: "another title", authors: ["another author"], thumbnail: "https://another-url.com")
+        let item2 = makeItem(title: "another title", authors: ["another author"], description: "another description", thumbnail: "https://another-url.com")
         
         let items = [item1.model, item2.model]
         
@@ -110,16 +110,16 @@ class RemoteBookLoaderTests: XCTestCase {
         return (sut, client, url)
     }
     
-    private func makeItem(title: String, authors: [String], thumbnail: String) -> (model: BookItem, json: [String : Any]) {
+    private func makeItem(title: String, authors: [String], description: String, thumbnail: String) -> (model: BookItem, json: [String : Any]) {
         let url = URL(string: thumbnail)!
-        let item = BookItem(title: title, authors: authors, thumbnail: url)
-        let json = makeItemJSON(title, authors, thumbnail)
+        let item = BookItem(title: title, authors: authors, description: description, thumbnail: url)
+        let json = makeItemJSON(title, authors, description, thumbnail)
         return (item, json)
     }
     
-    private func makeItemJSON(_ title: String, _ authors: [String], _ thumbnail: String) -> [String : Any] {
+    private func makeItemJSON(_ title: String, _ authors: [String],_ description: String, _ thumbnail: String) -> [String : Any] {
         let imageLinks = [ "smallThumbnail": "http://a-url.com", "thumbnail": thumbnail] as [String : Any]
-        let volumeInfo = ["title": title, "authors": authors, "imageLinks" : imageLinks] as [String : Any]
+        let volumeInfo = ["title": title, "authors": authors, "description": description, "imageLinks" : imageLinks] as [String : Any]
         let item = ["kind": "a kind", "id": "an id", "etag": "etag", "selfLink": "https://a-link.com",
                     "volumeInfo" : volumeInfo] as [String : Any]
         

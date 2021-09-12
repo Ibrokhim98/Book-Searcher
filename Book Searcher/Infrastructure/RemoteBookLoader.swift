@@ -41,18 +41,21 @@ class RemoteBookLoader: BookLoader {
                 for item in items {
                     var title: String?
                     var authors: [String]?
+                    var description: String?
                     var thumbNail: String?
                     if let object = item as? [String: Any], let volumeInfo = object["volumeInfo"] as? [String: Any] {
                          title = volumeInfo["title"] as? String
                          authors = volumeInfo["authors"] as? [String]
+                         description = volumeInfo["description"] as? String
 
                          if let imageLinks = volumeInfo["imageLinks"] as? [String: Any] {
                              thumbNail = imageLinks["thumbnail"] as? String
                          }
                      }
 
-                    if let title = title, let authors = authors, let thumbNail = thumbNail, let url = URL(string: thumbNail) {
-                        let book = BookItem(title: title, authors: authors, thumbnail: url)
+                    if let title = title, let authors = authors, let thumbNail = thumbNail,
+                       let description = description, let url = URL(string: thumbNail) {
+                        let book = BookItem(title: title, authors: authors, description: description, thumbnail: url)
                         books.append(book)
                     }
                 }
