@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class BookViewCell: UITableViewCell {
     
@@ -15,7 +16,6 @@ class BookViewCell: UITableViewCell {
     private let bookImage: UIImageView = {
         let bookImage = UIImageView()
         bookImage.contentMode = .scaleAspectFit
-        bookImage.backgroundColor = .red
         bookImage.translatesAutoresizingMaskIntoConstraints = false
         return bookImage
     }()
@@ -89,9 +89,11 @@ class BookViewCell: UITableViewCell {
         var authorsText = ""
         authors.forEach { author in
             authorsText += author
-            authorsText += "; "
+            authorsText += " "
         }
         authorsLabel.text = authorsText
-        bookImage.image = UIImage()
+        
+        bookImage.kf.indicatorType = .activity
+        bookImage.kf.setImage(with: thumbNail)
     }
 }
