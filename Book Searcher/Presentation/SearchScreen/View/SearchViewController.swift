@@ -62,7 +62,8 @@ class SearchViewController: UIViewController {
     }
     
     private func openDetailViewController(with viewModel: DetailViewModel) {
-        print("detail")
+        let detailVC = DetailViewController(viewModel: viewModel)
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 

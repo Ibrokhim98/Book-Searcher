@@ -24,7 +24,6 @@ class BookViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.numberOfLines = 2
-        label.text = "Book Name"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -33,7 +32,6 @@ class BookViewCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17)
         label.numberOfLines = 0
-        label.text = "Author1, Author2"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
