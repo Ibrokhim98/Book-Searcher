@@ -7,12 +7,7 @@
 
 import Foundation
 
-enum NetworkError: Error {
-   case connectivity
-   case invalidData
-}
-
-class RemoteBookLoader {
+class RemoteBookLoader: BookLoader {
     let url: URL
     let client: HTTPClient
     
@@ -25,7 +20,7 @@ class RemoteBookLoader {
         client.get(from: url) { result in
             switch result {
             case  let .success((data, response)):
-                if let items =  try? self.map(data, response) {
+                if let items = try? self.map(data, response) {
                     completion(.success(items))
                 } else {
                     completion(.failure(.invalidData))

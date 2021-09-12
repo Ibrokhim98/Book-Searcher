@@ -7,6 +7,12 @@
 
 import Foundation
 
+
+enum NetworkError: Error {
+   case connectivity
+   case invalidData
+}
+
 protocol BookLoader {
-    func load(completion: @escaping (Result<[BookItem], Error>) -> Void)
+    func load(completion: @escaping (Result<[BookItem], NetworkError>) -> Void)
 }
