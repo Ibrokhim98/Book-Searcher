@@ -22,6 +22,19 @@ class DetailViewController: UIViewController {
     }
     
     //MARK: - Outlets
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.isScrollEnabled = true
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
+    private let contentView: UIView = {
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        return contentView
+    }()
+
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -46,7 +59,7 @@ class DetailViewController: UIViewController {
         return label
     }()
     
-    private let labelsStackView: UIStackView = {
+    private let authorsLabelStackView: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
         sv.alignment = .fill
@@ -83,6 +96,16 @@ class DetailViewController: UIViewController {
         return sv
     }()
     
+    private let labelsStackView: UIStackView = {
+        let sv = UIStackView()
+        sv.axis = .vertical
+        sv.alignment = .fill
+        sv.distribution = .fillProportionally
+        sv.spacing = 16
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        return sv
+    }()
+    
     //MARK: - View LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,7 +123,6 @@ class DetailViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
     }
-
     //MARK: - Helper Methods
     private func setViewAppearance() {
         view.backgroundColor = UIColor(red: 243/255, green: 243/255, blue: 243/255, alpha: 1)
@@ -109,34 +131,48 @@ class DetailViewController: UIViewController {
     }
     
     private func setUpViews() {
-        view.addSubview(imageView)
-        view.addSubview(labelsStackView)
-        labelsStackView.addArrangedSubview(titleLabel)
-        labelsStackView.addArrangedSubview(authorsLabel)
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(imageView)
         
-        view.addSubview(descriptionLabelsStackView)
+        contentView.addSubview(labelsStackView)
+        labelsStackView.addArrangedSubview(authorsLabelStackView)
+        labelsStackView.addArrangedSubview(descriptionLabelsStackView)
+        
+        authorsLabelStackView.addArrangedSubview(titleLabel)
+        authorsLabelStackView.addArrangedSubview(authorsLabel)
+        
         descriptionLabelsStackView.addArrangedSubview(descriptionTitleLabel)
         descriptionLabelsStackView.addArrangedSubview(descriptionLabel)
     }
     
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
-            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 32),
+            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 32),
             imageView.heightAnchor.constraint(equalToConstant: 200),
             imageView.widthAnchor.constraint(equalToConstant: 200)
         ])
         
         NSLayoutConstraint.activate([
-            labelsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
-            labelsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
-            labelsStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 32)
-        ])
-        
-        NSLayoutConstraint.activate([
-            descriptionLabelsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
-            descriptionLabelsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32),
-            descriptionLabelsStackView.topAnchor.constraint(equalTo: labelsStackView.bottomAnchor, constant: 16)
+            labelsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 32),
+            labelsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -32),
+            labelsStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 32),
+            labelsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
     
